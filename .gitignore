@@ -1,0 +1,42 @@
+# Build outputs
+build/
+bin/
+out/
+target/
+dist/
+.gradle/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.swp
+.DS_Store
+
+# Node / pnpm
+node_modules/
+.svelte-kit/
+.pnpm-store/
+
+# Rust / Tauri
+src-tauri/target/
+
+# Logs
+*.log
+
+# OS
+*~
+
+# OpenRocket core
+core/build/
+core/tmp/
+core/bin/
+core/.gradle/
+
+# Frontend
+frontend/build/
+frontend/.svelte-kit/
+frontend/node_modules/
+
+# Generated test artifacts
+*.stl.tmp
