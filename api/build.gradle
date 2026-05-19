@@ -1,0 +1,58 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // HTTP / WebSocket
+    implementation 'io.javalin:javalin:6.7.0'
+    implementation 'org.slf4j:slf4j-simple:2.0.17'
+
+    // JSON
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.20.0'
+
+    // OpenRocket engine integration (optional, only when ':core' is included
+    // via -PwithCore=true). The bridge package compiles against these types.
+    if (findProject(':core') != null) {
+        compileOnly project(':core')
+        runtimeOnly project(':core')
+    }
+
+    testImplementation platform('org.junit:junit-bom:5.13.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+application {
+    mainClass = 'x.api.Server'
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+        showStandardStreams = false
+    }
+}
+
+// Excluding the bridge sources when core is not on the classpath keeps the
+// rest of the project compilable.
+if (findProject(':core') == null) {
+    sourceSets {
+        main {
+            java {
+                exclude 'x/bridge/**'
+            }
+        }
+    }
+}

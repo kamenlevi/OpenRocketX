@@ -1,0 +1,5 @@
+// Aggregating root build. Each subproject manages its own plugin set.
+allprojects {
+    group = 'org.openrocketx'
+    version = '0.1.0-SNAPSHOT'
+}

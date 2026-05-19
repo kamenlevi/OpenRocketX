@@ -1,0 +1,14 @@
+rootProject.name = 'openrocketx'
+
+// The upstream OpenRocket engine. Heavy dependency tree, git submodule for
+// component DB. Include it only when we need the engine integration; for
+// the STL exporter and our HTTP layer we keep things buildable without it.
+// To enable: pass -PwithCore=true or set the env var OPENROCKETX_WITH_CORE=1.
+def withCore = System.getenv('OPENROCKETX_WITH_CORE') == '1' \
+        || (settings.hasProperty('withCore') && settings.withCore == 'true')
+
+if (withCore) {
+    include 'core'
+}
+
+include 'api'
