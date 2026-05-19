@@ -1,5 +1,8 @@
 package x.model;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import java.util.List;
 
 /** A stage is an ordered axial sequence of body sections with attached fin sets. */
@@ -8,6 +11,12 @@ public record Stage(
         List<BodySection> sections,
         List<MountedFinSet> fins
 ) {
+    @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "kind")
+    @JsonSubTypes({
+            @JsonSubTypes.Type(value = NoseConeSection.class,   name = "nose"),
+            @JsonSubTypes.Type(value = BodyTubeSection.class,   name = "body"),
+            @JsonSubTypes.Type(value = TransitionSection.class, name = "transition")
+    })
     public sealed interface BodySection permits NoseConeSection, BodyTubeSection, TransitionSection {}
 
     public record NoseConeSection(NoseConeSpec spec) implements BodySection {}
