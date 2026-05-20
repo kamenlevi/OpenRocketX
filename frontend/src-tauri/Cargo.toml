@@ -1,0 +1,21 @@
+[package]
+name = "openrocketx"
+version = "0.1.0"
+edition = "2021"
+description = "OpenRocketX desktop shell"
+license = "GPL-3.0-only"
+
+[build-dependencies]
+tauri-build = { version = "2.0", features = [] }
+
+[dependencies]
+tauri = { version = "2.0", features = ["protocol-asset"] }
+tauri-plugin-shell = "2.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1", features = ["rt-multi-thread", "process", "io-util", "sync", "macros"] }
+log = "0.4"
+env_logger = "0.11"
+
+[features]
+custom-protocol = ["tauri/custom-protocol"]
